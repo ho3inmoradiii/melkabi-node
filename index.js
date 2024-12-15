@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer-core');
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 
 const app = express();
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -38,8 +39,13 @@ app.post('/generate-pdf', async (req, res) => {
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename="output.pdf"');
         res.end(pdfBuffer, 'binary');
+
     } catch (error) {
         console.error('Error generating PDF:', error);
+
+        // Write error details to a file for debugging
+        fs.writeFileSync('/tmp/pdf_error_log.txt', `Error: ${error.message}\nStack: ${error.stack}`);
+
         res.status(500).send('Failed to generate PDF');
     }
 });
@@ -47,4 +53,5 @@ app.post('/generate-pdf', async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`✅ PDF Generator server is running on port ${PORT}`);
+    fs.appendFileSync('/tmp/server_log.txt', `Server started on port ${PORT}\n`);
 });
