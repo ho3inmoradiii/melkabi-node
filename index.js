@@ -32,9 +32,9 @@ app.post('/generate-pdf', async (req, res) => {
             margin: { top: '0', bottom: '20mm', left: '0', right: '0' },
             displayHeaderFooter: true,
             footerTemplate: `
-            <div style="font-size: 10px; width: 100%; text-align: center; margin: 10px 0;">
-                <span class="pageNumber"></span> از <span class="totalPages"></span>
-            </div>`,
+    <div style="font-size: 10px; width: 100%; text-align: center; margin: 10px 0;">
+        <span style="direction: rtl;">صفحه <span class="pageNumber"></span> از <span class="totalPages"></span></span>
+    </div>`,
             printBackground: true,
         });
 
