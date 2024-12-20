@@ -40,7 +40,7 @@ app.post('/generate-pdf', async (req, res) => {
 
         .footer {
             font-family: 'IranSans', sans-serif;
-            font-size: 10px;
+            font-size: 80px;
         }
     `;
 
