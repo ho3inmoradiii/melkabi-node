@@ -29,6 +29,12 @@ app.post('/generate-pdf', async (req, res) => {
         console.log('Generating PDF...');
         const pdfBuffer = await page.pdf({
             format: 'A4',
+            margin: { top: '0', bottom: '20mm', left: '0', right: '0' },
+            displayHeaderFooter: true,
+            footerTemplate: `
+            <div style="font-size: 10px; width: 100%; text-align: center; margin: 10px 0;">
+                <span class="pageNumber"></span> از <span class="totalPages"></span>
+            </div>`,
             printBackground: true,
         });
 
